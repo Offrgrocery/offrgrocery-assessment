@@ -1,0 +1,10 @@
+services:
+  mysql-offrgrocery-dev:
+    image: mysql:8.4
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: offrgrocery-dev
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - offrgrocery-dev-db-data:/var/lib/mysql
