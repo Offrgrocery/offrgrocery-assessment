@@ -10,6 +10,7 @@ import (
 	"offgrocery-assessment/internal/ent/list"
 	"offgrocery-assessment/internal/ent/predicate"
 	"offgrocery-assessment/internal/ent/store"
+	"time"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
@@ -26,6 +27,61 @@ type ItemUpdate struct {
 // Where appends a list predicates to the ItemUpdate builder.
 func (_u *ItemUpdate) Where(ps ...predicate.Item) *ItemUpdate {
 	_u.mutation.Where(ps...)
+	return _u
+}
+
+// SetUpdateTime sets the "update_time" field.
+func (_u *ItemUpdate) SetUpdateTime(v time.Time) *ItemUpdate {
+	_u.mutation.SetUpdateTime(v)
+	return _u
+}
+
+// SetName sets the "name" field.
+func (_u *ItemUpdate) SetName(v string) *ItemUpdate {
+	_u.mutation.SetName(v)
+	return _u
+}
+
+// SetNillableName sets the "name" field if the given value is not nil.
+func (_u *ItemUpdate) SetNillableName(v *string) *ItemUpdate {
+	if v != nil {
+		_u.SetName(*v)
+	}
+	return _u
+}
+
+// SetBrand sets the "brand" field.
+func (_u *ItemUpdate) SetBrand(v string) *ItemUpdate {
+	_u.mutation.SetBrand(v)
+	return _u
+}
+
+// SetNillableBrand sets the "brand" field if the given value is not nil.
+func (_u *ItemUpdate) SetNillableBrand(v *string) *ItemUpdate {
+	if v != nil {
+		_u.SetBrand(*v)
+	}
+	return _u
+}
+
+// SetPrice sets the "price" field.
+func (_u *ItemUpdate) SetPrice(v float64) *ItemUpdate {
+	_u.mutation.ResetPrice()
+	_u.mutation.SetPrice(v)
+	return _u
+}
+
+// SetNillablePrice sets the "price" field if the given value is not nil.
+func (_u *ItemUpdate) SetNillablePrice(v *float64) *ItemUpdate {
+	if v != nil {
+		_u.SetPrice(*v)
+	}
+	return _u
+}
+
+// AddPrice adds value to the "price" field.
+func (_u *ItemUpdate) AddPrice(v float64) *ItemUpdate {
+	_u.mutation.AddPrice(v)
 	return _u
 }
 
@@ -89,6 +145,7 @@ func (_u *ItemUpdate) RemoveLists(v ...*List) *ItemUpdate {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (_u *ItemUpdate) Save(ctx context.Context) (int, error) {
+	_u.defaults()
 	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
@@ -114,8 +171,31 @@ func (_u *ItemUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (_u *ItemUpdate) defaults() {
+	if _, ok := _u.mutation.UpdateTime(); !ok {
+		v := item.UpdateDefaultUpdateTime()
+		_u.mutation.SetUpdateTime(v)
+	}
+}
+
 // check runs all checks and user-defined validators on the builder.
 func (_u *ItemUpdate) check() error {
+	if v, ok := _u.mutation.Name(); ok {
+		if err := item.NameValidator(v); err != nil {
+			return &ValidationError{Name: "name", err: fmt.Errorf(`ent: validator failed for field "Item.name": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.Brand(); ok {
+		if err := item.BrandValidator(v); err != nil {
+			return &ValidationError{Name: "brand", err: fmt.Errorf(`ent: validator failed for field "Item.brand": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.Price(); ok {
+		if err := item.PriceValidator(v); err != nil {
+			return &ValidationError{Name: "price", err: fmt.Errorf(`ent: validator failed for field "Item.price": %w`, err)}
+		}
+	}
 	if _u.mutation.StoreCleared() && len(_u.mutation.StoreIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "Item.store"`)
 	}
@@ -133,6 +213,21 @@ func (_u *ItemUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 				ps[i](selector)
 			}
 		}
+	}
+	if value, ok := _u.mutation.UpdateTime(); ok {
+		_spec.SetField(item.FieldUpdateTime, field.TypeTime, value)
+	}
+	if value, ok := _u.mutation.Name(); ok {
+		_spec.SetField(item.FieldName, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Brand(); ok {
+		_spec.SetField(item.FieldBrand, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Price(); ok {
+		_spec.SetField(item.FieldPrice, field.TypeFloat64, value)
+	}
+	if value, ok := _u.mutation.AddedPrice(); ok {
+		_spec.AddField(item.FieldPrice, field.TypeFloat64, value)
 	}
 	if _u.mutation.StoreCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -228,6 +323,61 @@ type ItemUpdateOne struct {
 	mutation *ItemMutation
 }
 
+// SetUpdateTime sets the "update_time" field.
+func (_u *ItemUpdateOne) SetUpdateTime(v time.Time) *ItemUpdateOne {
+	_u.mutation.SetUpdateTime(v)
+	return _u
+}
+
+// SetName sets the "name" field.
+func (_u *ItemUpdateOne) SetName(v string) *ItemUpdateOne {
+	_u.mutation.SetName(v)
+	return _u
+}
+
+// SetNillableName sets the "name" field if the given value is not nil.
+func (_u *ItemUpdateOne) SetNillableName(v *string) *ItemUpdateOne {
+	if v != nil {
+		_u.SetName(*v)
+	}
+	return _u
+}
+
+// SetBrand sets the "brand" field.
+func (_u *ItemUpdateOne) SetBrand(v string) *ItemUpdateOne {
+	_u.mutation.SetBrand(v)
+	return _u
+}
+
+// SetNillableBrand sets the "brand" field if the given value is not nil.
+func (_u *ItemUpdateOne) SetNillableBrand(v *string) *ItemUpdateOne {
+	if v != nil {
+		_u.SetBrand(*v)
+	}
+	return _u
+}
+
+// SetPrice sets the "price" field.
+func (_u *ItemUpdateOne) SetPrice(v float64) *ItemUpdateOne {
+	_u.mutation.ResetPrice()
+	_u.mutation.SetPrice(v)
+	return _u
+}
+
+// SetNillablePrice sets the "price" field if the given value is not nil.
+func (_u *ItemUpdateOne) SetNillablePrice(v *float64) *ItemUpdateOne {
+	if v != nil {
+		_u.SetPrice(*v)
+	}
+	return _u
+}
+
+// AddPrice adds value to the "price" field.
+func (_u *ItemUpdateOne) AddPrice(v float64) *ItemUpdateOne {
+	_u.mutation.AddPrice(v)
+	return _u
+}
+
 // SetStoreID sets the "store" edge to the Store entity by ID.
 func (_u *ItemUpdateOne) SetStoreID(id int) *ItemUpdateOne {
 	_u.mutation.SetStoreID(id)
@@ -301,6 +451,7 @@ func (_u *ItemUpdateOne) Select(field string, fields ...string) *ItemUpdateOne {
 
 // Save executes the query and returns the updated Item entity.
 func (_u *ItemUpdateOne) Save(ctx context.Context) (*Item, error) {
+	_u.defaults()
 	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
@@ -326,8 +477,31 @@ func (_u *ItemUpdateOne) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (_u *ItemUpdateOne) defaults() {
+	if _, ok := _u.mutation.UpdateTime(); !ok {
+		v := item.UpdateDefaultUpdateTime()
+		_u.mutation.SetUpdateTime(v)
+	}
+}
+
 // check runs all checks and user-defined validators on the builder.
 func (_u *ItemUpdateOne) check() error {
+	if v, ok := _u.mutation.Name(); ok {
+		if err := item.NameValidator(v); err != nil {
+			return &ValidationError{Name: "name", err: fmt.Errorf(`ent: validator failed for field "Item.name": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.Brand(); ok {
+		if err := item.BrandValidator(v); err != nil {
+			return &ValidationError{Name: "brand", err: fmt.Errorf(`ent: validator failed for field "Item.brand": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.Price(); ok {
+		if err := item.PriceValidator(v); err != nil {
+			return &ValidationError{Name: "price", err: fmt.Errorf(`ent: validator failed for field "Item.price": %w`, err)}
+		}
+	}
 	if _u.mutation.StoreCleared() && len(_u.mutation.StoreIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "Item.store"`)
 	}
@@ -362,6 +536,21 @@ func (_u *ItemUpdateOne) sqlSave(ctx context.Context) (_node *Item, err error) {
 				ps[i](selector)
 			}
 		}
+	}
+	if value, ok := _u.mutation.UpdateTime(); ok {
+		_spec.SetField(item.FieldUpdateTime, field.TypeTime, value)
+	}
+	if value, ok := _u.mutation.Name(); ok {
+		_spec.SetField(item.FieldName, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Brand(); ok {
+		_spec.SetField(item.FieldBrand, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Price(); ok {
+		_spec.SetField(item.FieldPrice, field.TypeFloat64, value)
+	}
+	if value, ok := _u.mutation.AddedPrice(); ok {
+		_spec.AddField(item.FieldPrice, field.TypeFloat64, value)
 	}
 	if _u.mutation.StoreCleared() {
 		edge := &sqlgraph.EdgeSpec{
