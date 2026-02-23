@@ -10,6 +10,9 @@ import (
 	"offgrocery-assessment/internal/auth/authservice"
 	"offgrocery-assessment/internal/auth/authstore"
 	"offgrocery-assessment/internal/config"
+	"offgrocery-assessment/internal/list/listhandler"
+	"offgrocery-assessment/internal/list/listservice"
+	"offgrocery-assessment/internal/list/liststore"
 )
 
 func NewWeb(cfg config.Config) error {
@@ -37,12 +40,17 @@ func NewWeb(cfg config.Config) error {
 		return err
 	}
 
-	store := authstore.New(client)
-	service := authservice.New(store)
-	handler := authhandler.New(service)
+	authStore := authstore.New(client)
+	authService := authservice.New(authStore)
+	authHandler := authhandler.New(authService)
+
+	listStore := liststore.New(client)
+	listService := listservice.New(listStore)
+	listHandler := listhandler.New(listService)
 
 	r := chi.NewRouter()
-	r.Mount("/auth", handler.Routes())
+	r.Mount("/auth", authHandler.Routes())
+	r.Mount("/lists", listHandler.Routes())
 
 	slog.Info("web: starting server", "port", cfg.Port)
 	if err := http.ListenAndServe(":"+cfg.Port, r); err != nil {
