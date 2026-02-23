@@ -3,6 +3,7 @@
 package migrate
 
 import (
+	"entgo.io/ent/dialect/entsql"
 	"entgo.io/ent/dialect/sql/schema"
 	"entgo.io/ent/schema/field"
 )
@@ -11,6 +12,11 @@ var (
 	// ItemsColumns holds the columns for the "items" table.
 	ItemsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "create_time", Type: field.TypeTime},
+		{Name: "update_time", Type: field.TypeTime},
+		{Name: "name", Type: field.TypeString},
+		{Name: "brand", Type: field.TypeString},
+		{Name: "price", Type: field.TypeFloat64},
 		{Name: "store_items", Type: field.TypeInt},
 	}
 	// ItemsTable holds the schema information for the "items" table.
@@ -21,9 +27,19 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "items_stores_items",
-				Columns:    []*schema.Column{ItemsColumns[1]},
+				Columns:    []*schema.Column{ItemsColumns[6]},
 				RefColumns: []*schema.Column{StoresColumns[0]},
 				OnDelete:   schema.NoAction,
+			},
+		},
+		Indexes: []*schema.Index{
+			{
+				Name:    "item_name_brand",
+				Unique:  false,
+				Columns: []*schema.Column{ItemsColumns[3], ItemsColumns[4]},
+				Annotation: &entsql.IndexAnnotation{
+					Type: "FULLTEXT",
+				},
 			},
 		},
 	}

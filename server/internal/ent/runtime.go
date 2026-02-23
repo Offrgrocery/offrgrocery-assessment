@@ -3,6 +3,7 @@
 package ent
 
 import (
+	"offgrocery-assessment/internal/ent/item"
 	"offgrocery-assessment/internal/ent/list"
 	"offgrocery-assessment/internal/ent/schema"
 	"offgrocery-assessment/internal/ent/user"
@@ -13,6 +14,33 @@ import (
 // (default values, validators, hooks and policies) and stitches it
 // to their package variables.
 func init() {
+	itemMixin := schema.Item{}.Mixin()
+	itemMixinFields0 := itemMixin[0].Fields()
+	_ = itemMixinFields0
+	itemFields := schema.Item{}.Fields()
+	_ = itemFields
+	// itemDescCreateTime is the schema descriptor for create_time field.
+	itemDescCreateTime := itemMixinFields0[0].Descriptor()
+	// item.DefaultCreateTime holds the default value on creation for the create_time field.
+	item.DefaultCreateTime = itemDescCreateTime.Default.(func() time.Time)
+	// itemDescUpdateTime is the schema descriptor for update_time field.
+	itemDescUpdateTime := itemMixinFields0[1].Descriptor()
+	// item.DefaultUpdateTime holds the default value on creation for the update_time field.
+	item.DefaultUpdateTime = itemDescUpdateTime.Default.(func() time.Time)
+	// item.UpdateDefaultUpdateTime holds the default value on update for the update_time field.
+	item.UpdateDefaultUpdateTime = itemDescUpdateTime.UpdateDefault.(func() time.Time)
+	// itemDescName is the schema descriptor for name field.
+	itemDescName := itemFields[0].Descriptor()
+	// item.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	item.NameValidator = itemDescName.Validators[0].(func(string) error)
+	// itemDescBrand is the schema descriptor for brand field.
+	itemDescBrand := itemFields[1].Descriptor()
+	// item.BrandValidator is a validator for the "brand" field. It is called by the builders before save.
+	item.BrandValidator = itemDescBrand.Validators[0].(func(string) error)
+	// itemDescPrice is the schema descriptor for price field.
+	itemDescPrice := itemFields[2].Descriptor()
+	// item.PriceValidator is a validator for the "price" field. It is called by the builders before save.
+	item.PriceValidator = itemDescPrice.Validators[0].(func(float64) error)
 	listMixin := schema.List{}.Mixin()
 	listMixinFields0 := listMixin[0].Fields()
 	_ = listMixinFields0
