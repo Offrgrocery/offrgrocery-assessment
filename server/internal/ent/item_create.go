@@ -9,6 +9,7 @@ import (
 	"offgrocery-assessment/internal/ent/item"
 	"offgrocery-assessment/internal/ent/list"
 	"offgrocery-assessment/internal/ent/store"
+	"time"
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
@@ -19,6 +20,52 @@ type ItemCreate struct {
 	config
 	mutation *ItemMutation
 	hooks    []Hook
+}
+
+// SetCreateTime sets the "create_time" field.
+func (_c *ItemCreate) SetCreateTime(v time.Time) *ItemCreate {
+	_c.mutation.SetCreateTime(v)
+	return _c
+}
+
+// SetNillableCreateTime sets the "create_time" field if the given value is not nil.
+func (_c *ItemCreate) SetNillableCreateTime(v *time.Time) *ItemCreate {
+	if v != nil {
+		_c.SetCreateTime(*v)
+	}
+	return _c
+}
+
+// SetUpdateTime sets the "update_time" field.
+func (_c *ItemCreate) SetUpdateTime(v time.Time) *ItemCreate {
+	_c.mutation.SetUpdateTime(v)
+	return _c
+}
+
+// SetNillableUpdateTime sets the "update_time" field if the given value is not nil.
+func (_c *ItemCreate) SetNillableUpdateTime(v *time.Time) *ItemCreate {
+	if v != nil {
+		_c.SetUpdateTime(*v)
+	}
+	return _c
+}
+
+// SetName sets the "name" field.
+func (_c *ItemCreate) SetName(v string) *ItemCreate {
+	_c.mutation.SetName(v)
+	return _c
+}
+
+// SetBrand sets the "brand" field.
+func (_c *ItemCreate) SetBrand(v string) *ItemCreate {
+	_c.mutation.SetBrand(v)
+	return _c
+}
+
+// SetPrice sets the "price" field.
+func (_c *ItemCreate) SetPrice(v float64) *ItemCreate {
+	_c.mutation.SetPrice(v)
+	return _c
 }
 
 // SetStoreID sets the "store" edge to the Store entity by ID.
@@ -54,6 +101,7 @@ func (_c *ItemCreate) Mutation() *ItemMutation {
 
 // Save creates the Item in the database.
 func (_c *ItemCreate) Save(ctx context.Context) (*Item, error) {
+	_c.defaults()
 	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
@@ -79,8 +127,50 @@ func (_c *ItemCreate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (_c *ItemCreate) defaults() {
+	if _, ok := _c.mutation.CreateTime(); !ok {
+		v := item.DefaultCreateTime()
+		_c.mutation.SetCreateTime(v)
+	}
+	if _, ok := _c.mutation.UpdateTime(); !ok {
+		v := item.DefaultUpdateTime()
+		_c.mutation.SetUpdateTime(v)
+	}
+}
+
 // check runs all checks and user-defined validators on the builder.
 func (_c *ItemCreate) check() error {
+	if _, ok := _c.mutation.CreateTime(); !ok {
+		return &ValidationError{Name: "create_time", err: errors.New(`ent: missing required field "Item.create_time"`)}
+	}
+	if _, ok := _c.mutation.UpdateTime(); !ok {
+		return &ValidationError{Name: "update_time", err: errors.New(`ent: missing required field "Item.update_time"`)}
+	}
+	if _, ok := _c.mutation.Name(); !ok {
+		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Item.name"`)}
+	}
+	if v, ok := _c.mutation.Name(); ok {
+		if err := item.NameValidator(v); err != nil {
+			return &ValidationError{Name: "name", err: fmt.Errorf(`ent: validator failed for field "Item.name": %w`, err)}
+		}
+	}
+	if _, ok := _c.mutation.Brand(); !ok {
+		return &ValidationError{Name: "brand", err: errors.New(`ent: missing required field "Item.brand"`)}
+	}
+	if v, ok := _c.mutation.Brand(); ok {
+		if err := item.BrandValidator(v); err != nil {
+			return &ValidationError{Name: "brand", err: fmt.Errorf(`ent: validator failed for field "Item.brand": %w`, err)}
+		}
+	}
+	if _, ok := _c.mutation.Price(); !ok {
+		return &ValidationError{Name: "price", err: errors.New(`ent: missing required field "Item.price"`)}
+	}
+	if v, ok := _c.mutation.Price(); ok {
+		if err := item.PriceValidator(v); err != nil {
+			return &ValidationError{Name: "price", err: fmt.Errorf(`ent: validator failed for field "Item.price": %w`, err)}
+		}
+	}
 	if len(_c.mutation.StoreIDs()) == 0 {
 		return &ValidationError{Name: "store", err: errors.New(`ent: missing required edge "Item.store"`)}
 	}
@@ -110,6 +200,26 @@ func (_c *ItemCreate) createSpec() (*Item, *sqlgraph.CreateSpec) {
 		_node = &Item{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(item.Table, sqlgraph.NewFieldSpec(item.FieldID, field.TypeInt))
 	)
+	if value, ok := _c.mutation.CreateTime(); ok {
+		_spec.SetField(item.FieldCreateTime, field.TypeTime, value)
+		_node.CreateTime = value
+	}
+	if value, ok := _c.mutation.UpdateTime(); ok {
+		_spec.SetField(item.FieldUpdateTime, field.TypeTime, value)
+		_node.UpdateTime = value
+	}
+	if value, ok := _c.mutation.Name(); ok {
+		_spec.SetField(item.FieldName, field.TypeString, value)
+		_node.Name = value
+	}
+	if value, ok := _c.mutation.Brand(); ok {
+		_spec.SetField(item.FieldBrand, field.TypeString, value)
+		_node.Brand = value
+	}
+	if value, ok := _c.mutation.Price(); ok {
+		_spec.SetField(item.FieldPrice, field.TypeFloat64, value)
+		_node.Price = value
+	}
 	if nodes := _c.mutation.StoreIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
@@ -164,6 +274,7 @@ func (_c *ItemCreateBulk) Save(ctx context.Context) ([]*Item, error) {
 	for i := range _c.builders {
 		func(i int, root context.Context) {
 			builder := _c.builders[i]
+			builder.defaults()
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*ItemMutation)
 				if !ok {

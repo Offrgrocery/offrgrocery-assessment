@@ -332,6 +332,18 @@ func (_q *ItemQuery) WithLists(opts ...func(*ListQuery)) *ItemQuery {
 
 // GroupBy is used to group vertices by one or more fields/columns.
 // It is often used with aggregate functions, like: count, max, mean, min, sum.
+//
+// Example:
+//
+//	var v []struct {
+//		CreateTime time.Time `json:"create_time,omitempty"`
+//		Count int `json:"count,omitempty"`
+//	}
+//
+//	client.Item.Query().
+//		GroupBy(item.FieldCreateTime).
+//		Aggregate(ent.Count()).
+//		Scan(ctx, &v)
 func (_q *ItemQuery) GroupBy(field string, fields ...string) *ItemGroupBy {
 	_q.ctx.Fields = append([]string{field}, fields...)
 	grbuild := &ItemGroupBy{build: _q}
@@ -343,6 +355,16 @@ func (_q *ItemQuery) GroupBy(field string, fields ...string) *ItemGroupBy {
 
 // Select allows the selection one or more fields/columns for the given query,
 // instead of selecting all fields in the entity.
+//
+// Example:
+//
+//	var v []struct {
+//		CreateTime time.Time `json:"create_time,omitempty"`
+//	}
+//
+//	client.Item.Query().
+//		Select(item.FieldCreateTime).
+//		Scan(ctx, &v)
 func (_q *ItemQuery) Select(fields ...string) *ItemSelect {
 	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
 	sbuild := &ItemSelect{ItemQuery: _q}
