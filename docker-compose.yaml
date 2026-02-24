@@ -8,3 +8,6 @@ services:
       MYSQL_ROOT_PASSWORD: password
     volumes:
       - offrgrocery-dev-db-data:/var/lib/mysql
+
+volumes:
+  offrgrocery-dev-db-data:
