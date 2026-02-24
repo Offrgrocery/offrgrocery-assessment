@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/go-chi/chi/v5"
+	"offgrocery-assessment/internal/httputil"
 	"offgrocery-assessment/internal/list/listservice"
 )
 
@@ -47,80 +48,80 @@ type addItemsRequest struct {
 	ItemIDs []int `json:"item_ids"`
 }
 
-type errorResponse struct {
-	Error string `json:"error"`
+type removeItemsRequest struct {
+	ItemIDs []int `json:"item_ids"`
 }
 
 func (h *handler) CreateList(w http.ResponseWriter, r *http.Request) {
 	var req createListRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		writeJSON(w, http.StatusBadRequest, errorResponse{Error: "invalid request body"})
+		httputil.WriteJSON(w, http.StatusBadRequest, httputil.ErrorResponse{Error: "invalid request body"})
 		return
 	}
 
 	if req.UserID == 0 || req.Name == "" {
-		writeJSON(w, http.StatusBadRequest, errorResponse{Error: "user_id and name are required"})
+		httputil.WriteJSON(w, http.StatusBadRequest, httputil.ErrorResponse{Error: "user_id and name are required"})
 		return
 	}
 
 	list, err := h.service.CreateList(r.Context(), req.UserID, req.Name)
 	if err != nil {
-		writeJSON(w, http.StatusInternalServerError, errorResponse{Error: "failed to create list"})
+		httputil.WriteJSON(w, http.StatusInternalServerError, httputil.ErrorResponse{Error: "failed to create list"})
 		return
 	}
 
-	writeJSON(w, http.StatusCreated, list)
+	httputil.WriteJSON(w, http.StatusCreated, list)
 }
 
 func (h *handler) GetLists(w http.ResponseWriter, r *http.Request) {
 	userIDStr := r.URL.Query().Get("user_id")
 	if userIDStr == "" {
-		writeJSON(w, http.StatusBadRequest, errorResponse{Error: "user_id query param is required"})
+		httputil.WriteJSON(w, http.StatusBadRequest, httputil.ErrorResponse{Error: "user_id query param is required"})
 		return
 	}
 
 	userID, err := strconv.Atoi(userIDStr)
 	if err != nil {
-		writeJSON(w, http.StatusBadRequest, errorResponse{Error: "invalid user_id"})
+		httputil.WriteJSON(w, http.StatusBadRequest, httputil.ErrorResponse{Error: "invalid user_id"})
 		return
 	}
 
 	lists, err := h.service.GetListsByUserID(r.Context(), userID)
 	if err != nil {
-		writeJSON(w, http.StatusInternalServerError, errorResponse{Error: "failed to fetch lists"})
+		httputil.WriteJSON(w, http.StatusInternalServerError, httputil.ErrorResponse{Error: "failed to fetch lists"})
 		return
 	}
 
-	writeJSON(w, http.StatusOK, lists)
+	httputil.WriteJSON(w, http.StatusOK, lists)
 }
 
 func (h *handler) GetList(w http.ResponseWriter, r *http.Request) {
 	idStr := chi.URLParam(r, "id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		writeJSON(w, http.StatusBadRequest, errorResponse{Error: "invalid list id"})
+		httputil.WriteJSON(w, http.StatusBadRequest, httputil.ErrorResponse{Error: "invalid list id"})
 		return
 	}
 
 	list, err := h.service.GetListByID(r.Context(), id)
 	if err != nil {
-		writeJSON(w, http.StatusNotFound, errorResponse{Error: "list not found"})
+		httputil.WriteJSON(w, http.StatusNotFound, httputil.ErrorResponse{Error: "list not found"})
 		return
 	}
 
-	writeJSON(w, http.StatusOK, list)
+	httputil.WriteJSON(w, http.StatusOK, list)
 }
 
 func (h *handler) DeleteList(w http.ResponseWriter, r *http.Request) {
 	idStr := chi.URLParam(r, "id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		writeJSON(w, http.StatusBadRequest, errorResponse{Error: "invalid list id"})
+		httputil.WriteJSON(w, http.StatusBadRequest, httputil.ErrorResponse{Error: "invalid list id"})
 		return
 	}
 
 	if err := h.service.DeleteList(r.Context(), id); err != nil {
-		writeJSON(w, http.StatusNotFound, errorResponse{Error: "list not found"})
+		httputil.WriteJSON(w, http.StatusNotFound, httputil.ErrorResponse{Error: "list not found"})
 		return
 	}
 
@@ -131,64 +132,54 @@ func (h *handler) AddItems(w http.ResponseWriter, r *http.Request) {
 	idStr := chi.URLParam(r, "id")
 	listID, err := strconv.Atoi(idStr)
 	if err != nil {
-		writeJSON(w, http.StatusBadRequest, errorResponse{Error: "invalid list id"})
+		httputil.WriteJSON(w, http.StatusBadRequest, httputil.ErrorResponse{Error: "invalid list id"})
 		return
 	}
 
 	var req addItemsRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		writeJSON(w, http.StatusBadRequest, errorResponse{Error: "invalid request body"})
+		httputil.WriteJSON(w, http.StatusBadRequest, httputil.ErrorResponse{Error: "invalid request body"})
 		return
 	}
 
 	if len(req.ItemIDs) == 0 {
-		writeJSON(w, http.StatusBadRequest, errorResponse{Error: "item_ids are required"})
+		httputil.WriteJSON(w, http.StatusBadRequest, httputil.ErrorResponse{Error: "item_ids are required"})
 		return
 	}
 
 	list, err := h.service.AddItemsToList(r.Context(), listID, req.ItemIDs)
 	if err != nil {
-		writeJSON(w, http.StatusInternalServerError, errorResponse{Error: "failed to add items to list"})
+		httputil.WriteJSON(w, http.StatusInternalServerError, httputil.ErrorResponse{Error: "failed to add items to list"})
 		return
 	}
 
-	writeJSON(w, http.StatusOK, list)
-}
-
-type removeItemsRequest struct {
-	ItemIDs []int `json:"item_ids"`
+	httputil.WriteJSON(w, http.StatusOK, list)
 }
 
 func (h *handler) RemoveItems(w http.ResponseWriter, r *http.Request) {
 	idStr := chi.URLParam(r, "id")
 	listID, err := strconv.Atoi(idStr)
 	if err != nil {
-		writeJSON(w, http.StatusBadRequest, errorResponse{Error: "invalid list id"})
+		httputil.WriteJSON(w, http.StatusBadRequest, httputil.ErrorResponse{Error: "invalid list id"})
 		return
 	}
 
 	var req removeItemsRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		writeJSON(w, http.StatusBadRequest, errorResponse{Error: "invalid request body"})
+		httputil.WriteJSON(w, http.StatusBadRequest, httputil.ErrorResponse{Error: "invalid request body"})
 		return
 	}
 
 	if len(req.ItemIDs) == 0 {
-		writeJSON(w, http.StatusBadRequest, errorResponse{Error: "item_ids are required"})
+		httputil.WriteJSON(w, http.StatusBadRequest, httputil.ErrorResponse{Error: "item_ids are required"})
 		return
 	}
 
 	list, err := h.service.RemoveItemsFromList(r.Context(), listID, req.ItemIDs)
 	if err != nil {
-		writeJSON(w, http.StatusInternalServerError, errorResponse{Error: "failed to remove items from list"})
+		httputil.WriteJSON(w, http.StatusInternalServerError, httputil.ErrorResponse{Error: "failed to remove items from list"})
 		return
 	}
 
-	writeJSON(w, http.StatusOK, list)
-}
-
-func writeJSON(w http.ResponseWriter, status int, v any) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(status)
-	json.NewEncoder(w).Encode(v)
+	httputil.WriteJSON(w, http.StatusOK, list)
 }

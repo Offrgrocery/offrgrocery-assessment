@@ -6,6 +6,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"offgrocery-assessment/internal/auth/authservice"
+	"offgrocery-assessment/internal/httputil"
 )
 
 type Handler interface {
@@ -38,37 +39,25 @@ type createUserResponse struct {
 	Name  string `json:"name"`
 }
 
-type errorResponse struct {
-	Error string `json:"error"`
-}
-
 func (h *handler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	var req createUserRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(errorResponse{Error: "invalid request body"})
+		httputil.WriteJSON(w, http.StatusBadRequest, httputil.ErrorResponse{Error: "invalid request body"})
 		return
 	}
 
 	if req.Email == "" || req.Name == "" {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(errorResponse{Error: "email and name are required"})
+		httputil.WriteJSON(w, http.StatusBadRequest, httputil.ErrorResponse{Error: "email and name are required"})
 		return
 	}
 
 	id, err := h.service.CreateUser(r.Context(), req.Email, req.Name)
 	if err != nil {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(errorResponse{Error: "failed to create user"})
+		httputil.WriteJSON(w, http.StatusInternalServerError, httputil.ErrorResponse{Error: "failed to create user"})
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(createUserResponse{
+	httputil.WriteJSON(w, http.StatusCreated, createUserResponse{
 		ID:    id,
 		Email: req.Email,
 		Name:  req.Name,

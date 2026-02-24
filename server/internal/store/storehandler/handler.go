@@ -1,11 +1,11 @@
 package storehandler
 
 import (
-	"encoding/json"
 	"net/http"
 	"strconv"
 
 	"github.com/go-chi/chi/v5"
+	"offgrocery-assessment/internal/httputil"
 	"offgrocery-assessment/internal/store/storeservice"
 )
 
@@ -28,29 +28,19 @@ func (h *handler) Routes() chi.Router {
 	return r
 }
 
-type errorResponse struct {
-	Error string `json:"error"`
-}
-
 func (h *handler) GetStore(w http.ResponseWriter, r *http.Request) {
 	idStr := chi.URLParam(r, "id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		writeJSON(w, http.StatusBadRequest, errorResponse{Error: "invalid store id"})
+		httputil.WriteJSON(w, http.StatusBadRequest, httputil.ErrorResponse{Error: "invalid store id"})
 		return
 	}
 
 	store, err := h.service.GetStoreByID(r.Context(), id)
 	if err != nil {
-		writeJSON(w, http.StatusNotFound, errorResponse{Error: "store not found"})
+		httputil.WriteJSON(w, http.StatusNotFound, httputil.ErrorResponse{Error: "store not found"})
 		return
 	}
 
-	writeJSON(w, http.StatusOK, store)
-}
-
-func writeJSON(w http.ResponseWriter, status int, v any) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(status)
-	json.NewEncoder(w).Encode(v)
+	httputil.WriteJSON(w, http.StatusOK, store)
 }
