@@ -32,6 +32,14 @@ func main() {
 					return app.NewImporter(cfg, "internal/seed/data/store_a.json")
 				},
 			},
+			{
+				Name:  "seed",
+				Usage: "seed the database with dev data",
+				Action: func(ctx context.Context, cmd *cli.Command) error {
+					cfg := config.Load()
+					return app.NewSeed(cfg)
+				},
+			},
 		},
 	}
 

@@ -4,6 +4,9 @@ web:
 import:
     go run ./cmd/server import
 
+seed:
+    go run ./cmd/server seed
+
 db:
     docker compose -f ../docker-compose.yaml up -d
 
