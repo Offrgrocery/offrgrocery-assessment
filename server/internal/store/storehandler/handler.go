@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"github.com/go-chi/chi/v5"
+	"offgrocery-assessment/internal/ent"
 	"offgrocery-assessment/internal/httputil"
 	"offgrocery-assessment/internal/store/storeservice"
 )
@@ -38,7 +39,11 @@ func (h *handler) GetStore(w http.ResponseWriter, r *http.Request) {
 
 	store, err := h.service.GetStoreByID(r.Context(), id)
 	if err != nil {
-		httputil.WriteJSON(w, http.StatusNotFound, httputil.ErrorResponse{Error: "store not found"})
+		if ent.IsNotFound(err) {
+			httputil.WriteJSON(w, http.StatusNotFound, httputil.ErrorResponse{Error: "store not found"})
+			return
+		}
+		httputil.WriteJSON(w, http.StatusInternalServerError, httputil.ErrorResponse{Error: "failed to get store"})
 		return
 	}
 
