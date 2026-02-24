@@ -1,3 +1,15 @@
+web:
+    go run ./cmd/server web
+
+import:
+    go run ./cmd/server import
+
+db:
+    docker compose -f ../docker-compose.yaml up -d
+
+db-down:
+    docker compose -f ../docker-compose.yaml down -v
+
 ent-add schema_name:
     go run -mod=mod entgo.io/ent/cmd/ent new --target internal/ent/schema {{schema_name}}
 
