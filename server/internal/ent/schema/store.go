@@ -15,7 +15,11 @@ type Store struct {
 func (Store) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("store_id").Unique(),
-		field.Enum("grocer").Values("metro", "provigo"),
+		field.Enum("grocer").Values(
+			"store_a",
+			"store_b",
+			"store_c",
+		),
 	}
 }
 

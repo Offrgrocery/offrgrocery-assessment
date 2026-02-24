@@ -53,8 +53,9 @@ type Grocer string
 
 // Grocer values.
 const (
-	GrocerMetro   Grocer = "metro"
-	GrocerProvigo Grocer = "provigo"
+	GrocerStoreA Grocer = "store_a"
+	GrocerStoreB Grocer = "store_b"
+	GrocerStoreC Grocer = "store_c"
 )
 
 func (gr Grocer) String() string {
@@ -64,7 +65,7 @@ func (gr Grocer) String() string {
 // GrocerValidator is a validator for the "grocer" field enum values. It is called by the builders before save.
 func GrocerValidator(gr Grocer) error {
 	switch gr {
-	case GrocerMetro, GrocerProvigo:
+	case GrocerStoreA, GrocerStoreB, GrocerStoreC:
 		return nil
 	default:
 		return fmt.Errorf("store: invalid enum value for grocer field: %q", gr)
