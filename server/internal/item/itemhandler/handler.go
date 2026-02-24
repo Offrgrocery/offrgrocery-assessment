@@ -1,13 +1,12 @@
 package itemhandler
 
 import (
-	"encoding/json"
 	"net/http"
 	"strconv"
 
-	"offgrocery-assessment/internal/item/itemservice"
-
 	"github.com/go-chi/chi/v5"
+	"offgrocery-assessment/internal/httputil"
+	"offgrocery-assessment/internal/item/itemservice"
 )
 
 type Handler interface {
@@ -31,31 +30,27 @@ func (h *handler) Routes() chi.Router {
 	return r
 }
 
-type errorResponse struct {
-	Error string `json:"error"`
-}
-
 func (h *handler) GetItem(w http.ResponseWriter, r *http.Request) {
 	idStr := chi.URLParam(r, "id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		writeJSON(w, http.StatusBadRequest, errorResponse{Error: "invalid item id"})
+		httputil.WriteJSON(w, http.StatusBadRequest, httputil.ErrorResponse{Error: "invalid item id"})
 		return
 	}
 
 	item, err := h.service.GetItemByID(r.Context(), id)
 	if err != nil {
-		writeJSON(w, http.StatusNotFound, errorResponse{Error: "item not found"})
+		httputil.WriteJSON(w, http.StatusNotFound, httputil.ErrorResponse{Error: "item not found"})
 		return
 	}
 
-	writeJSON(w, http.StatusOK, item)
+	httputil.WriteJSON(w, http.StatusOK, item)
 }
 
 func (h *handler) SearchWithLimit(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query().Get("q")
 	if query == "" {
-		writeJSON(w, http.StatusBadRequest, errorResponse{Error: "q query param is required"})
+		httputil.WriteJSON(w, http.StatusBadRequest, httputil.ErrorResponse{Error: "q query param is required"})
 		return
 	}
 
@@ -63,7 +58,7 @@ func (h *handler) SearchWithLimit(w http.ResponseWriter, r *http.Request) {
 	if countStr := r.URL.Query().Get("count"); countStr != "" {
 		parsed, err := strconv.Atoi(countStr)
 		if err != nil || parsed < 1 {
-			writeJSON(w, http.StatusBadRequest, errorResponse{Error: "invalid count"})
+			httputil.WriteJSON(w, http.StatusBadRequest, httputil.ErrorResponse{Error: "invalid count"})
 			return
 		}
 		limit = parsed
@@ -71,15 +66,9 @@ func (h *handler) SearchWithLimit(w http.ResponseWriter, r *http.Request) {
 
 	items, err := h.service.SearchWithLimit(r.Context(), query, limit)
 	if err != nil {
-		writeJSON(w, http.StatusInternalServerError, errorResponse{Error: "failed to search items"})
+		httputil.WriteJSON(w, http.StatusInternalServerError, httputil.ErrorResponse{Error: "failed to search items"})
 		return
 	}
 
-	writeJSON(w, http.StatusOK, items)
-}
-
-func writeJSON(w http.ResponseWriter, status int, v any) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(status)
-	json.NewEncoder(w).Encode(v)
+	httputil.WriteJSON(w, http.StatusOK, items)
 }
