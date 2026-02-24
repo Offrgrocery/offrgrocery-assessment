@@ -46,9 +46,13 @@ func (s *store) GetListByID(ctx context.Context, id int) (*ent.List, error) {
 }
 
 func (s *store) AddItemsToList(ctx context.Context, listID int, itemIDs []int) (*ent.List, error) {
-	return s.client.List.UpdateOneID(listID).
+	_, err := s.client.List.UpdateOneID(listID).
 		AddItemIDs(itemIDs...).
 		Save(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return s.GetListByID(ctx, listID)
 }
 
 func (s *store) DeleteList(ctx context.Context, id int) error {
@@ -56,7 +60,11 @@ func (s *store) DeleteList(ctx context.Context, id int) error {
 }
 
 func (s *store) RemoveItemsFromList(ctx context.Context, listID int, itemIDs []int) (*ent.List, error) {
-	return s.client.List.UpdateOneID(listID).
+	_, err := s.client.List.UpdateOneID(listID).
 		RemoveItemIDs(itemIDs...).
 		Save(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return s.GetListByID(ctx, listID)
 }
