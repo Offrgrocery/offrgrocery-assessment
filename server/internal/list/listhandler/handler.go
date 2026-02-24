@@ -14,6 +14,7 @@ type Handler interface {
 	CreateList(w http.ResponseWriter, r *http.Request)
 	GetLists(w http.ResponseWriter, r *http.Request)
 	GetList(w http.ResponseWriter, r *http.Request)
+	DeleteList(w http.ResponseWriter, r *http.Request)
 	AddItems(w http.ResponseWriter, r *http.Request)
 }
 
@@ -30,6 +31,7 @@ func (h *handler) Routes() chi.Router {
 	r.Post("/", h.CreateList)
 	r.Get("/", h.GetLists)
 	r.Get("/{id}", h.GetList)
+	r.Delete("/{id}", h.DeleteList)
 	r.Post("/{id}/items", h.AddItems)
 	return r
 }
@@ -105,6 +107,22 @@ func (h *handler) GetList(w http.ResponseWriter, r *http.Request) {
 	}
 
 	writeJSON(w, http.StatusOK, list)
+}
+
+func (h *handler) DeleteList(w http.ResponseWriter, r *http.Request) {
+	idStr := chi.URLParam(r, "id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		writeJSON(w, http.StatusBadRequest, errorResponse{Error: "invalid list id"})
+		return
+	}
+
+	if err := h.service.DeleteList(r.Context(), id); err != nil {
+		writeJSON(w, http.StatusNotFound, errorResponse{Error: "list not found"})
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
 }
 
 func (h *handler) AddItems(w http.ResponseWriter, r *http.Request) {
