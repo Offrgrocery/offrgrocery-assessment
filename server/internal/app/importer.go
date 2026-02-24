@@ -21,7 +21,7 @@ func NewImporter(cfg config.Config, filePath string) error {
 
 	slog.Info("importer: pinging database")
 	if err := db.PingContext(ctx); err != nil {
-		slog.Error("seed: failed to ping database", "error", err)
+		slog.Error("importer: failed to ping database", "error", err)
 		return err
 	}
 
