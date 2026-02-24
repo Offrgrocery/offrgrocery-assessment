@@ -69,7 +69,7 @@ var (
 	StoresColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "store_id", Type: field.TypeString, Unique: true},
-		{Name: "grocer", Type: field.TypeEnum, Enums: []string{"metro", "provigo"}},
+		{Name: "grocer", Type: field.TypeEnum, Enums: []string{"store_a", "store_b", "store_c"}},
 	}
 	// StoresTable holds the schema information for the "stores" table.
 	StoresTable = &schema.Table{

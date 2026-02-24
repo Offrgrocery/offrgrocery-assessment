@@ -1,0 +1,316 @@
+{
+  "location": {
+    "id": "store-b-042",
+    "chain": "store_b"
+  },
+  "inventory": [
+    {
+      "item": {
+        "label": "2% Milk",
+        "brand_name": "Natrel"
+      },
+      "pricing": {
+        "current_price": 5.79,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200001"
+    },
+    {
+      "item": {
+        "label": "Salted Butter",
+        "brand_name": "Lactantia"
+      },
+      "pricing": {
+        "current_price": 5.99,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200002"
+    },
+    {
+      "item": {
+        "label": "Large Eggs (12 pack)",
+        "brand_name": "Burnbrae Farms"
+      },
+      "pricing": {
+        "current_price": 5.29,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200003"
+    },
+    {
+      "item": {
+        "label": "Old Cheddar Cheese",
+        "brand_name": "Black Diamond"
+      },
+      "pricing": {
+        "current_price": 9.49,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200004"
+    },
+    {
+      "item": {
+        "label": "Vanilla Greek Yogurt",
+        "brand_name": "Oikos"
+      },
+      "pricing": {
+        "current_price": 6.49,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200005"
+    },
+    {
+      "item": {
+        "label": "White Sandwich Bread",
+        "brand_name": "Dempster's"
+      },
+      "pricing": {
+        "current_price": 4.29,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200006"
+    },
+    {
+      "item": {
+        "label": "Whole Wheat Bread",
+        "brand_name": "Country Harvest"
+      },
+      "pricing": {
+        "current_price": 4.29,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200007"
+    },
+    {
+      "item": {
+        "label": "Everything Bagels (6 pack)",
+        "brand_name": "Dempster's"
+      },
+      "pricing": {
+        "current_price": 4.49,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200008"
+    },
+    {
+      "item": {
+        "label": "Boneless Skinless Chicken Breast",
+        "brand_name": "Maple Leaf"
+      },
+      "pricing": {
+        "current_price": 15.49,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200009"
+    },
+    {
+      "item": {
+        "label": "Extra Lean Ground Beef",
+        "brand_name": "Blue Menu"
+      },
+      "pricing": {
+        "current_price": 8.99,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200010"
+    },
+    {
+      "item": {
+        "label": "Pork Tenderloin",
+        "brand_name": "Maple Leaf"
+      },
+      "pricing": {
+        "current_price": 12.49,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200011"
+    },
+    {
+      "item": {
+        "label": "Bananas",
+        "brand_name": "Chiquita"
+      },
+      "pricing": {
+        "current_price": 1.99,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200012"
+    },
+    {
+      "item": {
+        "label": "Gala Apples (3 lb bag)",
+        "brand_name": "Scotian Gold"
+      },
+      "pricing": {
+        "current_price": 5.49,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200013"
+    },
+    {
+      "item": {
+        "label": "Baby Spinach",
+        "brand_name": "Earthbound Farm"
+      },
+      "pricing": {
+        "current_price": 4.99,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200014"
+    },
+    {
+      "item": {
+        "label": "Avocados (4 pack)",
+        "brand_name": "Del Monte"
+      },
+      "pricing": {
+        "current_price": 6.49,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200015"
+    },
+    {
+      "item": {
+        "label": "Tomato Pasta Sauce",
+        "brand_name": "Classico"
+      },
+      "pricing": {
+        "current_price": 3.99,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200016"
+    },
+    {
+      "item": {
+        "label": "Penne Rigate",
+        "brand_name": "Barilla"
+      },
+      "pricing": {
+        "current_price": 2.79,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200017"
+    },
+    {
+      "item": {
+        "label": "Jasmine Rice",
+        "brand_name": "Ben's Original"
+      },
+      "pricing": {
+        "current_price": 9.49,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200018"
+    },
+    {
+      "item": {
+        "label": "Crunchy Peanut Butter",
+        "brand_name": "Kraft"
+      },
+      "pricing": {
+        "current_price": 5.79,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200019"
+    },
+    {
+      "item": {
+        "label": "Orange Juice (No Pulp)",
+        "brand_name": "Tropicana"
+      },
+      "pricing": {
+        "current_price": 6.29,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200020"
+    },
+    {
+      "item": {
+        "label": "Original Ketchup",
+        "brand_name": "Heinz"
+      },
+      "pricing": {
+        "current_price": 5.29,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200021"
+    },
+    {
+      "item": {
+        "label": "Frozen Mixed Vegetables",
+        "brand_name": "Green Giant"
+      },
+      "pricing": {
+        "current_price": 3.49,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200022"
+    },
+    {
+      "item": {
+        "label": "Vanilla Ice Cream",
+        "brand_name": "Chapman's"
+      },
+      "pricing": {
+        "current_price": 6.49,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200023"
+    },
+    {
+      "item": {
+        "label": "Marble Cheese",
+        "brand_name": "Cracker Barrel"
+      },
+      "pricing": {
+        "current_price": 7.99,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200024"
+    },
+    {
+      "item": {
+        "label": "Sourdough Loaf",
+        "brand_name": "ACE Bakery"
+      },
+      "pricing": {
+        "current_price": 5.49,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200025"
+    },
+    {
+      "item": {
+        "label": "Chicken Thighs (Bone-In)",
+        "brand_name": "Maple Leaf"
+      },
+      "pricing": {
+        "current_price": 10.99,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200026"
+    },
+    {
+      "item": {
+        "label": "Sliced Black Forest Ham",
+        "brand_name": "Maple Leaf"
+      },
+      "pricing": {
+        "current_price": 5.49,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200027"
+    },
+    {
+      "item": {
+        "label": "Plain Cream Cheese",
+        "brand_name": "Philadelphia"
+      },
+      "pricing": {
+        "current_price": 5.29,
+        "currency": "CAD"
+      },
+      "barcode": "SB-200028"
+    }
+  ]
+}

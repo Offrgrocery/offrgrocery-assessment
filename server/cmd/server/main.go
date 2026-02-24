@@ -5,9 +5,10 @@ import (
 	"log"
 	"os"
 
-	"github.com/urfave/cli/v3"
 	"offgrocery-assessment/internal/app"
 	"offgrocery-assessment/internal/config"
+
+	"github.com/urfave/cli/v3"
 )
 
 func main() {
@@ -21,6 +22,14 @@ func main() {
 				Action: func(ctx context.Context, cmd *cli.Command) error {
 					cfg := config.Load()
 					return app.NewWeb(cfg)
+				},
+			},
+			{
+				Name:  "import",
+				Usage: "import the database with grocery data",
+				Action: func(ctx context.Context, cmd *cli.Command) error {
+					cfg := config.Load()
+					return app.NewImporter(cfg, "internal/seed/data/store_a.json")
 				},
 			},
 		},
