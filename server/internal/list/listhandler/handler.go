@@ -16,6 +16,7 @@ type Handler interface {
 	GetList(w http.ResponseWriter, r *http.Request)
 	DeleteList(w http.ResponseWriter, r *http.Request)
 	AddItems(w http.ResponseWriter, r *http.Request)
+	RemoveItems(w http.ResponseWriter, r *http.Request)
 }
 
 type handler struct {
@@ -33,6 +34,7 @@ func (h *handler) Routes() chi.Router {
 	r.Get("/{id}", h.GetList)
 	r.Delete("/{id}", h.DeleteList)
 	r.Post("/{id}/items", h.AddItems)
+	r.Delete("/{id}/items", h.RemoveItems)
 	return r
 }
 
@@ -147,6 +149,38 @@ func (h *handler) AddItems(w http.ResponseWriter, r *http.Request) {
 	list, err := h.service.AddItemsToList(r.Context(), listID, req.ItemIDs)
 	if err != nil {
 		writeJSON(w, http.StatusInternalServerError, errorResponse{Error: "failed to add items to list"})
+		return
+	}
+
+	writeJSON(w, http.StatusOK, list)
+}
+
+type removeItemsRequest struct {
+	ItemIDs []int `json:"item_ids"`
+}
+
+func (h *handler) RemoveItems(w http.ResponseWriter, r *http.Request) {
+	idStr := chi.URLParam(r, "id")
+	listID, err := strconv.Atoi(idStr)
+	if err != nil {
+		writeJSON(w, http.StatusBadRequest, errorResponse{Error: "invalid list id"})
+		return
+	}
+
+	var req removeItemsRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		writeJSON(w, http.StatusBadRequest, errorResponse{Error: "invalid request body"})
+		return
+	}
+
+	if len(req.ItemIDs) == 0 {
+		writeJSON(w, http.StatusBadRequest, errorResponse{Error: "item_ids are required"})
+		return
+	}
+
+	list, err := h.service.RemoveItemsFromList(r.Context(), listID, req.ItemIDs)
+	if err != nil {
+		writeJSON(w, http.StatusInternalServerError, errorResponse{Error: "failed to remove items from list"})
 		return
 	}
 
