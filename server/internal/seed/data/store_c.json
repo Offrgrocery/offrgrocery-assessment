@@ -1,0 +1,257 @@
+{
+  "store_code": "store-c-789",
+  "catalogue": [
+    {
+      "display_name": "2% Milk",
+      "producer": "Natrel",
+      "cost": 5.29,
+      "product_id": "SC-300001",
+      "aisle": "dairy",
+      "organic": false,
+      "unit": "per 2L carton"
+    },
+    {
+      "display_name": "Salted Butter",
+      "producer": "Lactantia",
+      "cost": 6.49,
+      "product_id": "SC-300002",
+      "aisle": "dairy",
+      "organic": false,
+      "unit": "per 454g block"
+    },
+    {
+      "display_name": "Large Eggs (12 pack)",
+      "producer": "Burnbrae Farms",
+      "cost": 4.79,
+      "product_id": "SC-300003",
+      "aisle": "dairy",
+      "organic": false,
+      "unit": "per dozen"
+    },
+    {
+      "display_name": "Old Cheddar Cheese",
+      "producer": "Black Diamond",
+      "cost": 8.49,
+      "product_id": "SC-300004",
+      "aisle": "dairy",
+      "organic": false,
+      "unit": "per 400g block"
+    },
+    {
+      "display_name": "Vanilla Greek Yogurt",
+      "producer": "Oikos",
+      "cost": 7.19,
+      "product_id": "SC-300005",
+      "aisle": "dairy",
+      "organic": false,
+      "unit": "per 750g tub"
+    },
+    {
+      "display_name": "White Sandwich Bread",
+      "producer": "Dempster's",
+      "cost": 3.79,
+      "product_id": "SC-300006",
+      "aisle": "bakery",
+      "organic": false,
+      "unit": "per loaf"
+    },
+    {
+      "display_name": "Whole Wheat Bread",
+      "producer": "Country Harvest",
+      "cost": 4.69,
+      "product_id": "SC-300007",
+      "aisle": "bakery",
+      "organic": false,
+      "unit": "per loaf"
+    },
+    {
+      "display_name": "Boneless Skinless Chicken Breast",
+      "producer": "Maple Leaf",
+      "cost": 14.49,
+      "product_id": "SC-300008",
+      "aisle": "meat",
+      "organic": false,
+      "unit": "per 900g tray"
+    },
+    {
+      "display_name": "Extra Lean Ground Beef",
+      "producer": "Blue Menu",
+      "cost": 9.99,
+      "product_id": "SC-300009",
+      "aisle": "meat",
+      "organic": false,
+      "unit": "per 500g package"
+    },
+    {
+      "display_name": "Atlantic Salmon Fillet",
+      "producer": "High Liner",
+      "cost": 13.49,
+      "product_id": "SC-300010",
+      "aisle": "seafood",
+      "organic": false,
+      "unit": "per 400g package"
+    },
+    {
+      "display_name": "Organic Bananas",
+      "producer": "Dole",
+      "cost": 2.49,
+      "product_id": "SC-300011",
+      "aisle": "produce",
+      "organic": true,
+      "unit": "per bunch"
+    },
+    {
+      "display_name": "Gala Apples (3 lb bag)",
+      "producer": "Scotian Gold",
+      "cost": 6.29,
+      "product_id": "SC-300012",
+      "aisle": "produce",
+      "organic": false,
+      "unit": "per 3 lb bag"
+    },
+    {
+      "display_name": "Baby Spinach",
+      "producer": "Earthbound Farm",
+      "cost": 4.29,
+      "product_id": "SC-300013",
+      "aisle": "produce",
+      "organic": true,
+      "unit": "per 312g container"
+    },
+    {
+      "display_name": "Avocados (4 pack)",
+      "producer": "Del Monte",
+      "cost": 5.49,
+      "product_id": "SC-300014",
+      "aisle": "produce",
+      "organic": false,
+      "unit": "per 4 pack"
+    },
+    {
+      "display_name": "Sweet Potatoes",
+      "producer": "Local Farm",
+      "cost": 3.29,
+      "product_id": "SC-300015",
+      "aisle": "produce",
+      "organic": false,
+      "unit": "per kg"
+    },
+    {
+      "display_name": "Tomato Pasta Sauce",
+      "producer": "Classico",
+      "cost": 4.49,
+      "product_id": "SC-300016",
+      "aisle": "pantry",
+      "organic": false,
+      "unit": "per 650mL jar"
+    },
+    {
+      "display_name": "Penne Rigate",
+      "producer": "Barilla",
+      "cost": 2.29,
+      "product_id": "SC-300017",
+      "aisle": "pantry",
+      "organic": false,
+      "unit": "per 454g box"
+    },
+    {
+      "display_name": "Jasmine Rice",
+      "producer": "Ben's Original",
+      "cost": 8.49,
+      "product_id": "SC-300018",
+      "aisle": "pantry",
+      "organic": false,
+      "unit": "per 1.8kg bag"
+    },
+    {
+      "display_name": "Crunchy Peanut Butter",
+      "producer": "Kraft",
+      "cost": 5.99,
+      "product_id": "SC-300019",
+      "aisle": "pantry",
+      "organic": false,
+      "unit": "per 1kg jar"
+    },
+    {
+      "display_name": "Pure Maple Syrup",
+      "producer": "Kirkland",
+      "cost": 13.99,
+      "product_id": "SC-300020",
+      "aisle": "pantry",
+      "organic": true,
+      "unit": "per 1L bottle"
+    },
+    {
+      "display_name": "Orange Juice (No Pulp)",
+      "producer": "Tropicana",
+      "cost": 5.79,
+      "product_id": "SC-300021",
+      "aisle": "beverages",
+      "organic": false,
+      "unit": "per 1.75L carton"
+    },
+    {
+      "display_name": "Original Ketchup",
+      "producer": "Heinz",
+      "cost": 5.69,
+      "product_id": "SC-300022",
+      "aisle": "condiments",
+      "organic": false,
+      "unit": "per 750mL bottle"
+    },
+    {
+      "display_name": "Frozen Mixed Vegetables",
+      "producer": "Green Giant",
+      "cost": 3.19,
+      "product_id": "SC-300023",
+      "aisle": "frozen",
+      "organic": false,
+      "unit": "per 750g bag"
+    },
+    {
+      "display_name": "Vanilla Ice Cream",
+      "producer": "Chapman's",
+      "cost": 5.49,
+      "product_id": "SC-300024",
+      "aisle": "frozen",
+      "organic": false,
+      "unit": "per 2L tub"
+    },
+    {
+      "display_name": "All Purpose Flour",
+      "producer": "Robin Hood",
+      "cost": 6.99,
+      "product_id": "SC-300025",
+      "aisle": "baking",
+      "organic": false,
+      "unit": "per 2.5kg bag"
+    },
+    {
+      "display_name": "Organic Oat Milk",
+      "producer": "Earth's Own",
+      "cost": 5.49,
+      "product_id": "SC-300026",
+      "aisle": "dairy alternatives",
+      "organic": true,
+      "unit": "per 1.75L carton"
+    },
+    {
+      "display_name": "Whole Bean Coffee",
+      "producer": "Kicking Horse",
+      "cost": 13.99,
+      "product_id": "SC-300027",
+      "aisle": "beverages",
+      "organic": true,
+      "unit": "per 454g bag"
+    },
+    {
+      "display_name": "Organic Honey",
+      "producer": "Billy Bee",
+      "cost": 9.49,
+      "product_id": "SC-300028",
+      "aisle": "pantry",
+      "organic": true,
+      "unit": "per 500g jar"
+    }
+  ]
+}

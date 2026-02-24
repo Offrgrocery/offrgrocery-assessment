@@ -1,0 +1,229 @@
+{
+  "store_location_id": "store-a-001",
+  "products": [
+    {
+      "product_name": "2% Milk",
+      "manufacturer": "Natrel",
+      "retail_price": 5.49,
+      "sku": "SA-100001",
+      "category": "dairy",
+      "weight_grams": 2000
+    },
+    {
+      "product_name": "Salted Butter",
+      "manufacturer": "Lactantia",
+      "retail_price": 6.29,
+      "sku": "SA-100002",
+      "category": "dairy",
+      "weight_grams": 454
+    },
+    {
+      "product_name": "Large Eggs (12 pack)",
+      "manufacturer": "Burnbrae Farms",
+      "retail_price": 4.99,
+      "sku": "SA-100003",
+      "category": "dairy",
+      "weight_grams": 660
+    },
+    {
+      "product_name": "Old Cheddar Cheese",
+      "manufacturer": "Black Diamond",
+      "retail_price": 8.99,
+      "sku": "SA-100004",
+      "category": "dairy",
+      "weight_grams": 400
+    },
+    {
+      "product_name": "Vanilla Greek Yogurt",
+      "manufacturer": "Oikos",
+      "retail_price": 6.79,
+      "sku": "SA-100005",
+      "category": "dairy",
+      "weight_grams": 750
+    },
+    {
+      "product_name": "White Sandwich Bread",
+      "manufacturer": "Dempster's",
+      "retail_price": 3.99,
+      "sku": "SA-100006",
+      "category": "bakery",
+      "weight_grams": 675
+    },
+    {
+      "product_name": "Whole Wheat Bread",
+      "manufacturer": "Country Harvest",
+      "retail_price": 4.49,
+      "sku": "SA-100007",
+      "category": "bakery",
+      "weight_grams": 600
+    },
+    {
+      "product_name": "Everything Bagels (6 pack)",
+      "manufacturer": "Dempster's",
+      "retail_price": 4.29,
+      "sku": "SA-100008",
+      "category": "bakery",
+      "weight_grams": 450
+    },
+    {
+      "product_name": "Boneless Skinless Chicken Breast",
+      "manufacturer": "Maple Leaf",
+      "retail_price": 14.99,
+      "sku": "SA-100009",
+      "category": "meat",
+      "weight_grams": 900
+    },
+    {
+      "product_name": "Extra Lean Ground Beef",
+      "manufacturer": "Blue Menu",
+      "retail_price": 9.49,
+      "sku": "SA-100010",
+      "category": "meat",
+      "weight_grams": 500
+    },
+    {
+      "product_name": "Pork Tenderloin",
+      "manufacturer": "Maple Leaf",
+      "retail_price": 11.99,
+      "sku": "SA-100011",
+      "category": "meat",
+      "weight_grams": 600
+    },
+    {
+      "product_name": "Atlantic Salmon Fillet",
+      "manufacturer": "High Liner",
+      "retail_price": 12.99,
+      "sku": "SA-100012",
+      "category": "seafood",
+      "weight_grams": 400
+    },
+    {
+      "product_name": "Bananas",
+      "manufacturer": "Dole",
+      "retail_price": 1.89,
+      "sku": "SA-100013",
+      "category": "produce",
+      "weight_grams": 1000
+    },
+    {
+      "product_name": "Gala Apples (3 lb bag)",
+      "manufacturer": "Scotian Gold",
+      "retail_price": 5.99,
+      "sku": "SA-100014",
+      "category": "produce",
+      "weight_grams": 1360
+    },
+    {
+      "product_name": "Baby Spinach",
+      "manufacturer": "Earthbound Farm",
+      "retail_price": 4.49,
+      "sku": "SA-100015",
+      "category": "produce",
+      "weight_grams": 312
+    },
+    {
+      "product_name": "Avocados (4 pack)",
+      "manufacturer": "Del Monte",
+      "retail_price": 5.99,
+      "sku": "SA-100016",
+      "category": "produce",
+      "weight_grams": 800
+    },
+    {
+      "product_name": "Sweet Potatoes",
+      "manufacturer": "Local Farm",
+      "retail_price": 3.49,
+      "sku": "SA-100017",
+      "category": "produce",
+      "weight_grams": 1000
+    },
+    {
+      "product_name": "Tomato Pasta Sauce",
+      "manufacturer": "Classico",
+      "retail_price": 4.29,
+      "sku": "SA-100018",
+      "category": "pantry",
+      "weight_grams": 650
+    },
+    {
+      "product_name": "Penne Rigate",
+      "manufacturer": "Barilla",
+      "retail_price": 2.49,
+      "sku": "SA-100019",
+      "category": "pantry",
+      "weight_grams": 454
+    },
+    {
+      "product_name": "Jasmine Rice",
+      "manufacturer": "Ben's Original",
+      "retail_price": 8.99,
+      "sku": "SA-100020",
+      "category": "pantry",
+      "weight_grams": 1800
+    },
+    {
+      "product_name": "Crunchy Peanut Butter",
+      "manufacturer": "Kraft",
+      "retail_price": 5.49,
+      "sku": "SA-100021",
+      "category": "pantry",
+      "weight_grams": 1000
+    },
+    {
+      "product_name": "Pure Maple Syrup",
+      "manufacturer": "Kirkland",
+      "retail_price": 14.99,
+      "sku": "SA-100022",
+      "category": "pantry",
+      "weight_grams": 1000
+    },
+    {
+      "product_name": "Orange Juice (No Pulp)",
+      "manufacturer": "Tropicana",
+      "retail_price": 5.99,
+      "sku": "SA-100023",
+      "category": "beverages",
+      "weight_grams": 1750
+    },
+    {
+      "product_name": "Original Ketchup",
+      "manufacturer": "Heinz",
+      "retail_price": 5.49,
+      "sku": "SA-100024",
+      "category": "condiments",
+      "weight_grams": 750
+    },
+    {
+      "product_name": "Frozen Mixed Vegetables",
+      "manufacturer": "Green Giant",
+      "retail_price": 3.29,
+      "sku": "SA-100025",
+      "category": "frozen",
+      "weight_grams": 750
+    },
+    {
+      "product_name": "Vanilla Ice Cream",
+      "manufacturer": "Chapman's",
+      "retail_price": 5.99,
+      "sku": "SA-100026",
+      "category": "frozen",
+      "weight_grams": 2000
+    },
+    {
+      "product_name": "All Purpose Flour",
+      "manufacturer": "Robin Hood",
+      "retail_price": 6.49,
+      "sku": "SA-100027",
+      "category": "baking",
+      "weight_grams": 2500
+    },
+    {
+      "product_name": "Canola Oil",
+      "manufacturer": "Mazola",
+      "retail_price": 7.49,
+      "sku": "SA-100028",
+      "category": "pantry",
+      "weight_grams": 1420
+    }
+  ]
+}
