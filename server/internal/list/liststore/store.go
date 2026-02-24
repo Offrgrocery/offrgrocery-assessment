@@ -37,7 +37,10 @@ func (s *store) GetListsByUserID(ctx context.Context, userID int) ([]*ent.List, 
 }
 
 func (s *store) GetListByID(ctx context.Context, id int) (*ent.List, error) {
-	return s.client.List.Get(ctx, id)
+	return s.client.List.Query().
+		Where(list.IDEQ(id)).
+		WithItems().
+		First(ctx)
 }
 
 func (s *store) AddItemsToList(ctx context.Context, listID int, itemIDs []int) (*ent.List, error) {

@@ -30,6 +30,7 @@ func (s *store) SearchWithLimit(ctx context.Context, query string, limit int) ([
 				),
 			)
 		}).
+		WithStore().
 		Limit(limit).
 		All(ctx)
 }
