@@ -12,6 +12,7 @@ import (
 
 type Handler interface {
 	Routes() chi.Router
+	GetItem(w http.ResponseWriter, r *http.Request)
 	SearchWithLimit(w http.ResponseWriter, r *http.Request)
 }
 
@@ -26,11 +27,29 @@ func New(service itemservice.Service) *handler {
 func (h *handler) Routes() chi.Router {
 	r := chi.NewRouter()
 	r.Get("/search", h.SearchWithLimit)
+	r.Get("/{id}", h.GetItem)
 	return r
 }
 
 type errorResponse struct {
 	Error string `json:"error"`
+}
+
+func (h *handler) GetItem(w http.ResponseWriter, r *http.Request) {
+	idStr := chi.URLParam(r, "id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		writeJSON(w, http.StatusBadRequest, errorResponse{Error: "invalid item id"})
+		return
+	}
+
+	item, err := h.service.GetItemByID(r.Context(), id)
+	if err != nil {
+		writeJSON(w, http.StatusNotFound, errorResponse{Error: "item not found"})
+		return
+	}
+
+	writeJSON(w, http.StatusOK, item)
 }
 
 func (h *handler) SearchWithLimit(w http.ResponseWriter, r *http.Request) {
