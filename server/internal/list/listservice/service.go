@@ -13,6 +13,7 @@ type Service interface {
 	GetListByID(ctx context.Context, id int) (*ent.List, error)
 	AddItemsToList(ctx context.Context, listID int, itemIDs []int) (*ent.List, error)
 	DeleteList(ctx context.Context, id int) error
+	RemoveItemsFromList(ctx context.Context, listID int, itemIDs []int) (*ent.List, error)
 }
 
 type service struct {
@@ -41,4 +42,8 @@ func (s *service) AddItemsToList(ctx context.Context, listID int, itemIDs []int)
 
 func (s *service) DeleteList(ctx context.Context, id int) error {
 	return s.store.DeleteList(ctx, id)
+}
+
+func (s *service) RemoveItemsFromList(ctx context.Context, listID int, itemIDs []int) (*ent.List, error) {
+	return s.store.RemoveItemsFromList(ctx, listID, itemIDs)
 }

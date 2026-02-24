@@ -14,6 +14,7 @@ type Store interface {
 	GetListByID(ctx context.Context, id int) (*ent.List, error)
 	AddItemsToList(ctx context.Context, listID int, itemIDs []int) (*ent.List, error)
 	DeleteList(ctx context.Context, id int) error
+	RemoveItemsFromList(ctx context.Context, listID int, itemIDs []int) (*ent.List, error)
 }
 
 type store struct {
@@ -52,4 +53,10 @@ func (s *store) AddItemsToList(ctx context.Context, listID int, itemIDs []int) (
 
 func (s *store) DeleteList(ctx context.Context, id int) error {
 	return s.client.List.DeleteOneID(id).Exec(ctx)
+}
+
+func (s *store) RemoveItemsFromList(ctx context.Context, listID int, itemIDs []int) (*ent.List, error) {
+	return s.client.List.UpdateOneID(listID).
+		RemoveItemIDs(itemIDs...).
+		Save(ctx)
 }
