@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/go-chi/chi/v5"
+	"offgrocery-assessment/internal/ent"
 	"offgrocery-assessment/internal/httputil"
 	"offgrocery-assessment/internal/list/listservice"
 )
@@ -105,7 +106,11 @@ func (h *handler) GetList(w http.ResponseWriter, r *http.Request) {
 
 	list, err := h.service.GetListByID(r.Context(), id)
 	if err != nil {
-		httputil.WriteJSON(w, http.StatusNotFound, httputil.ErrorResponse{Error: "list not found"})
+		if ent.IsNotFound(err) {
+			httputil.WriteJSON(w, http.StatusNotFound, httputil.ErrorResponse{Error: "list not found"})
+			return
+		}
+		httputil.WriteJSON(w, http.StatusInternalServerError, httputil.ErrorResponse{Error: "failed to get list"})
 		return
 	}
 
@@ -121,7 +126,11 @@ func (h *handler) DeleteList(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := h.service.DeleteList(r.Context(), id); err != nil {
-		httputil.WriteJSON(w, http.StatusNotFound, httputil.ErrorResponse{Error: "list not found"})
+		if ent.IsNotFound(err) {
+			httputil.WriteJSON(w, http.StatusNotFound, httputil.ErrorResponse{Error: "list not found"})
+			return
+		}
+		httputil.WriteJSON(w, http.StatusInternalServerError, httputil.ErrorResponse{Error: "failed to delete list"})
 		return
 	}
 
