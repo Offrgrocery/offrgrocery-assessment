@@ -16,6 +16,9 @@ import (
 	"offgrocery-assessment/internal/list/listhandler"
 	"offgrocery-assessment/internal/list/listservice"
 	"offgrocery-assessment/internal/list/liststore"
+	"offgrocery-assessment/internal/store/storehandler"
+	"offgrocery-assessment/internal/store/storeservice"
+	"offgrocery-assessment/internal/store/storestore"
 )
 
 func NewWeb(cfg config.Config) error {
@@ -55,10 +58,15 @@ func NewWeb(cfg config.Config) error {
 	itemService := itemservice.New(itemStore)
 	itemHandler := itemhandler.New(itemService)
 
+	stStore := storestore.New(client)
+	stService := storeservice.New(stStore)
+	stHandler := storehandler.New(stService)
+
 	r := chi.NewRouter()
 	r.Mount("/auth", authHandler.Routes())
 	r.Mount("/lists", listHandler.Routes())
 	r.Mount("/items", itemHandler.Routes())
+	r.Mount("/stores", stHandler.Routes())
 
 	slog.Info("web: starting server", "port", cfg.Port)
 	if err := http.ListenAndServe(":"+cfg.Port, r); err != nil {
